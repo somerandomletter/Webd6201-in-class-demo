@@ -1,5 +1,24 @@
 (function () {
 
+    function DisplayNavBar() {
+        // AJAX
+        // instantiate the XHR Object
+        let XHR = new XMLHttpRequest()
+
+        // add event listener for readystatechange
+        XHR.addEventListener("readystatechange", () => {
+            if (XHR.readyState === 4 && XHR.status === 200) {
+                $('#navigationBar').html(XHR.responseText)
+            }
+        })
+
+        // connect and get data
+        XHR.open("GET", "./static/header.html")
+
+        // send request to server to await response
+        XHR.send()
+    }
+
     function DisplayHome() {
         $("#RandomButton").on("click", function() {
             location.href = 'contact.html'
@@ -18,15 +37,45 @@
     }
 
     function AddContact(fullName, contactNumber, emailAddress) {
-        let contact = new Contact(fullName, contactNumber, emailAddress)
+        let contact = new core.Contact(fullName, contactNumber, emailAddress)
         if (contact.serialize()) {
             let key = contact.Name.substring(0, 1) + Date.now()
             localStorage.setItem(key, contact.serialize())
         }
     }
 
+    function ValidateInput(inputFieldID, regularExpression, exception) {
+        let messageArea = $('#messageArea').hide()
+
+        $('#' + inputFieldID).on("blur", function() {
+            let inputText = $(this).val()
+
+            if (!regularExpression.test(inputText)) {
+                // failure to match full name with regex
+
+                $(this).trigger("focus").trigger("select")
+
+                messageArea.addClass("alert alert-danger").text(exception).show()
+            } else {
+                // success in matching full name with regex
+
+                messageArea.removeAttr("class").hide()
+            }
+        })
+    }
+
+    function ContactFormValidate() {
+        let emailAddressPattern = /^[\w-\.]+@([\w-]+\.)+[\w-][\D]{2,10}$/g
+        let fullNamePattern = /^([A-Z][a-z]{1,25})((\s|,|-)([A-Z][a-z]{1,25}))*(\s|-|,)*([A-Z][a-z]{1,25})*$/g
+
+        ValidateInput("fullName", fullNamePattern, "Please enter a valid Full name which means a capitalized first name and capitalized last name")
+        ValidateInput("emailAddress", emailAddressPattern, "Please enter a valid Email Address")
+    }
+
     function DisplayContacts() {
         console.log("Contact Us Page")
+
+        ContactFormValidate()
 
         let submitButton = document.getElementById("submitButton")
         let subscribeCheckbox = document.getElementById("subscribeCheckbox")
@@ -56,7 +105,7 @@
             // for every key in the keys collection
             for (const key of keys) {
                 let contactData = localStorage.getItem(key) // Get localStorage data value related to the key
-                let contact = new Contact()
+                let contact = new core.Contact()
                 
                 contact.deserialize(contactData)
 
@@ -70,7 +119,7 @@
                     <td class="text-center"><button value="${ key }" class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt fa-sm"></i>&nbsp; Delete</button></td>
                 </tr>
                 `
-                
+
                 index++
             }
 
@@ -94,6 +143,7 @@
     }
 
     function DisplayEditPage() {
+        ContactFormValidate()
         let page = location.hash.substring(1)
 
         switch(page) {
@@ -117,7 +167,7 @@
             default:
                 {
                     // get contact info from localStorage
-                    let contact = new Contact()
+                    let contact = new core.Contact()
                     contact.deserialize(localStorage.getItem(page))
 
                     // display contact info in edit form
@@ -148,6 +198,14 @@
     function DisplayReferences() {
         console.log("References Page")
     }
+
+    function DispayLoginPage() {
+        console.log("Login Page")
+    }
+    
+    function DisplayRegisterPage() {
+        console.log("Registration Page")
+    }
     
     function Start() {
         console.log("App Started Successfully!")
@@ -155,6 +213,7 @@
         switch (document.title) {
             case "Home - WEBD6201 Demo":
                 DisplayHome()
+                DisplayNavBar()
                 break
             case "Projects - WEBD6201 Demo":
                 DisplayProjects()
@@ -171,7 +230,34 @@
             case "Edit - WEBD6201 Demo":
                 DisplayEditPage()
                 break
+            case "Login - WEBD6201 Demo":
+                DisplayLoginPage()
+                break
+            case "Register - WEBD6201 Demo":
+                DisplayRegisterPage()
+                break
         }
+    }
+    function testNumber(){
+        let messageArea = $("messageArea").hide()
+        let fullNumberPattern = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im
+        $('#contactNumber').on("blue", function(){
+            let fullNumberText=$(this).val()
+
+            if(!fullNumberPattern.test(fullNumberText)){
+                $(this).trigger("focus").trigger("select")
+
+                messageArea.addClass("alert alert-danger")
+                messageArea.text("Must enter a valid Number with no letter. Must be 10 digits")
+                messageArea.show()
+
+            } else {
+                // success in matching phone number with regex
+
+                messageArea.removeAttr("Class")
+                messageArea.hide()
+            }
+        })
     }
 
     window.addEventListener("load", Start)
