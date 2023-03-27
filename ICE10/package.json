@@ -1,0 +1,30 @@
+{
+  "name": "webd6201-in-class-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite-server": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sohaib-Mohiuddin/webd6201-in-class-demo.git"
+  },
+  "author": "Sohaib Mohiuddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sohaib-Mohiuddin/webd6201-in-class-demo/issues"
+  },
+  "homepage": "https://github.com/Sohaib-Mohiuddin/webd6201-in-class-demo#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "bootstrap": "^5.2.3",
+    "is-odd": "^3.0.1",
+    "jquery": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.16",
+    "lite-server": "^2.6.1"
+  }
+}
