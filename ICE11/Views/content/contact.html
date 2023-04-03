@@ -1,0 +1,35 @@
+<h1 id="welcome"><i class="fa-solid fa-envelope"></i></i> WEBD6201 Demo Contact Us</h1>
+<div id="messageArea"></div>
+<div class="row justify-content-lg-center g-3">
+  <form method="get" id="contactform" name="contactForm" class="col-lg-6 col-md-10 col-sm-10">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Name</span>
+      <input type="text" class="form-control" id="fullName" name="fullName" placeholder="e.g. John Doe">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Contact Number</span>
+      <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="e.g. 6471234567">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Email Address</span>
+      <input type="text" class="form-control" id="emailAddress" name="emailAddress"
+        placeholder="e.g. johndoe@gmail.com">
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Additional Comments</span>
+      <textarea class="form-control" aria-label="Additional Comments"></textarea>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="subscribeCheckbox" name="subscribeCheckbox">
+      <label class="form-check-label" for="exampleCheck1">Subscribe?</label>
+    </div>
+    <button type="submit" class="btn btn-primary" id="submitButton"><i class="fas fa-envelope fa-lg"></i>
+      Submit</button>
+    <button type="reset" class="btn btn-warning" id="resetButton"><i class="fas fa-undo fa-lg"></i> Cancel</button>
+  </form>
+
+  <div class="col-lg-4 col-md-4">
+    <a data="contact-list" class="btn btn-primary btn-lg link"><i class="fas fa-users fa-lg"></i> Show Contact
+      List</a>
+  </div>
+</div>
